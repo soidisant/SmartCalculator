@@ -1,0 +1,1 @@
+val regex = """\d\d? rings?""".toRegex()

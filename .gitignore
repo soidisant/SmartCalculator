@@ -1,0 +1,47 @@
+# Project exclude paths
+/.gradle/
+/Smart Calculator/task/build/
+/Smart Calculator/task/out/
+/Smart Calculator/task/out/production/classes/
+/Topics/Mutable Map/Application/out/
+/Topics/Mutable Map/Application/out/production/classes/
+/Topics/Mutable Map/Application (1)/out/
+/Topics/Mutable Map/Application (1)/out/production/classes/
+/Topics/Mutable Map/Help the robot/out/
+/Topics/Mutable Map/Help the robot/out/production/classes/
+/Topics/Mutable Map/Theory/out/
+/Topics/Mutable Map/Theory/out/production/classes/
+/Topics/Regexps/Backslash problem/out/
+/Topics/Regexps/Backslash problem/out/production/classes/
+/Topics/Regexps/Help the teacher/out/
+/Topics/Regexps/Help the teacher/out/production/classes/
+/Topics/Regexps/Rings of Power/out/
+/Topics/Regexps/Rings of Power/out/production/classes/
+/Topics/Regexps/Theory/out/
+/Topics/Regexps/Theory/out/production/classes/
+/Topics/Regexps in use/Aaaaaaa to a/out/
+/Topics/Regexps in use/Aaaaaaa to a/out/production/classes/
+/Topics/Regexps in use/Removing chords/out/
+/Topics/Regexps in use/Removing chords/out/production/classes/
+/Topics/Regexps in use/Theory/out/
+/Topics/Regexps in use/Theory/out/production/classes/
+/Topics/Regexps in use/Understanding the definitions/out/
+/Topics/Regexps in use/Understanding the definitions/out/production/classes/
+/Topics/Regexps in use/Web colors/out/
+/Topics/Regexps in use/Web colors/out/production/classes/
+/Topics/The try-catch statement/Converter to Double/out/
+/Topics/The try-catch statement/Converter to Double/out/production/classes/
+/Topics/The try-catch statement/Correct code/out/
+/Topics/The try-catch statement/Correct code/out/production/classes/
+/Topics/The try-catch statement/Integer division/out/
+/Topics/The try-catch statement/Integer division/out/production/classes/
+/Topics/The try-catch statement/Theory/out/
+/Topics/The try-catch statement/Theory/out/production/classes/
+/Topics/The try-catch-finally statement/Braking distance/out/
+/Topics/The try-catch-finally statement/Braking distance/out/production/classes/
+/Topics/The try-catch-finally statement/Complex handling/out/
+/Topics/The try-catch-finally statement/Complex handling/out/production/classes/
+/Topics/The try-catch-finally statement/Parting words/out/
+/Topics/The try-catch-finally statement/Parting words/out/production/classes/
+/Topics/The try-catch-finally statement/Theory/out/
+/Topics/The try-catch-finally statement/Theory/out/production/classes/

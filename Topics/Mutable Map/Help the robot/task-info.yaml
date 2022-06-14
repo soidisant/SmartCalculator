@@ -1,0 +1,16 @@
+type: code
+files:
+- name: src/Main.kt
+  visible: true
+  text: |-
+    fun helpingTheRobot(purchases: Map<String, Int>, addition: Map<String, Int>) : MutableMap<String, Int> {
+        //write your code here
+
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/15884#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Mon, 13 Jun 2022 15:12:45 UTC
+record: -1
