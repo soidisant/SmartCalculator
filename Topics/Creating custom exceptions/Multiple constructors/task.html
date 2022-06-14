@@ -1,0 +1,12 @@
+<h2>Multiple constructors</h2>
+<html>
+ <head></head>
+ <body>
+  <p>We create a custom exception with the following code:</p> 
+  <pre><code class="language-kotlin">class MyCustomException: Exception {
+    constructor(message: String?) : super(message)
+    constructor(message: String?, cause: Throwable?) : super(message, cause)
+}</code></pre> 
+  <p>If <code class="language-kotlin">otherException</code> is an exception instance, which are the correct methods to throw it?</p>
+ </body>
+</html>
