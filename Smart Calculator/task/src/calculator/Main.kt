@@ -50,7 +50,7 @@ class Calculator {
                         if (b > BigInteger.valueOf(Int.MAX_VALUE.toLong())) {
                             throw Exception("power exponent cannot exceed ${Int.MAX_VALUE}. Error at : $a^$b ")
                         }
-                        a . pow (b.toInt())
+                        a.pow(b.toInt())
                     }
                 }
 
@@ -170,9 +170,48 @@ class Calculator {
         throw Exception("Invalid expression")
     }
 
+    private fun getToken(rawToken: String): Token {
+        if (rawToken.matches("\\d+".toRegex())) {
+            // it's a number
+            return NumberToken(value = BigInteger(rawToken, 10))
+        } else if (rawToken == ")") {
+            return RightParenthesisToken()
+        } else if (rawToken == "(") {
+            return LeftParenthesisToken()
+        } else if (rawToken.matches("[-+/*^]+".toRegex())) {
+            // handling --- or +++ instruction
+            val correctedToken =
+                if (rawToken.length == 1) {
+                    rawToken
+                } else if (rawToken.matches("\\++".toRegex())) {
+                    "+"
+                } else if (rawToken.matches("-+".toRegex())) {
+                    // only minus signs -- = + || --- = -
+                    if (rawToken.length % 2 == 0) {
+                        "+"
+                    } else {
+                        "-"
+                    }
+                } else {
+                    throw Exception("Invalid expression")
+                }
+
+            return when (OPERATOR.values().first { it.symbol == correctedToken }) {
+                OPERATOR.PLUS -> OperatorToken(OPERATOR.PLUS)
+                OPERATOR.MINUS -> OperatorToken(OPERATOR.MINUS)
+                OPERATOR.TIMES -> OperatorToken(OPERATOR.TIMES)
+                OPERATOR.DIV -> OperatorToken(OPERATOR.DIV)
+                OPERATOR.POW -> OperatorToken(OPERATOR.POW)
+            }
+        } else {
+            // last case, token may be a variable name, check will come later
+            return VariableToken(rawToken)
+        }
+    }
+
     // create a list of tokens from the expression
     private fun tokenize(expression: String): MutableList<Token> {
-        val rawTokens = mutableListOf<String>()
+        val tokens = mutableListOf<Token>()
         var currentToken: String? = null
         // parsing the expression by character
         for (c in expression) {
@@ -181,7 +220,7 @@ class Calculator {
                     if (currentToken.matches("[-+/*^]+".toRegex())) {
                         currentToken += c
                     } else {
-                        rawTokens.add(currentToken)
+                        tokens.add(getToken(currentToken))
                         currentToken = c
                             .toString()
                     }
@@ -190,17 +229,17 @@ class Calculator {
             }
             if (c.toString().matches("[()]".toRegex())) {
                 if (currentToken != null) {
-                    rawTokens.add(currentToken)
+                    tokens.add(getToken(currentToken))
                     currentToken = null
                 }
-                rawTokens.add(c.toString())
+                tokens.add(getToken(c.toString()))
             }
             if (c.toString().matches("[\\da-zA-Z]".toRegex())) {
                 if (currentToken != null) {
                     if (currentToken.matches("[\\da-zA-Z]+".toRegex())) {
                         currentToken += c
                     } else {
-                        rawTokens.add(currentToken)
+                        tokens.add(getToken(currentToken))
                         currentToken = c.toString()
                     }
                 } else
@@ -208,49 +247,10 @@ class Calculator {
             }
         }
         if (currentToken != null) {
-            rawTokens.add(currentToken)
+            tokens.add(getToken(currentToken))
         }
-        // now that we have a raw list of token (ie strings)
-        // we can create a nice list of Token
-        val typedTokens = mutableListOf<Token>()
-        for (token in rawTokens) {
-            if (token.matches("\\d+".toRegex())) {
-                // it's a number
-                typedTokens.add(NumberToken(value = BigInteger(token, 10)))
-            } else if (token == ")") {
-                typedTokens.add(RightParenthesisToken())
-            } else if (token == "(") {
-                typedTokens.add(LeftParenthesisToken())
-            } else if (token.matches("[-+/*^]+".toRegex())) {
-                // handling --- or +++ instruction
-                val correctedToken =
-                    if (token.length == 1) {
-                        token
-                    } else if (token.matches("\\++".toRegex())) {
-                        "+"
-                    } else if (token.matches("-+".toRegex())) {
-                        // only minus signs -- = + || --- = -
-                        if (token.length % 2 == 0) {
-                            "+"
-                        } else {
-                            "-"
-                        }
-                    } else {
-                        throw Exception("Invalid expression")
-                    }
-                when (correctedToken) {
-                    OPERATOR.PLUS.symbol -> typedTokens.add(OperatorToken(OPERATOR.PLUS))
-                    OPERATOR.MINUS.symbol -> typedTokens.add(OperatorToken(OPERATOR.MINUS))
-                    OPERATOR.TIMES.symbol -> typedTokens.add(OperatorToken(OPERATOR.TIMES))
-                    OPERATOR.DIV.symbol -> typedTokens.add(OperatorToken(OPERATOR.DIV))
-                    OPERATOR.POW.symbol -> typedTokens.add(OperatorToken(OPERATOR.POW))
-                }
-            } else {
-                // last case, token may be a variable name, check will come later
-                typedTokens.add(VariableToken(token))
-            }
-        }
-        return typedTokens
+
+        return tokens
     }
 
     // Create a list of Token corresponding to a postfix notation of the input
